@@ -1,18 +1,20 @@
 " Name: vim-tmuxlike
 " Version: 0.1
-" Author: github.com/Karmenzind
+" Author: "github.com/Karmenzind"
+" Edit/fork : "github.com/kwask94"
 
-" --------------------------------------------
-" funcs
-" --------------------------------------------
-
-function! s:TabSplitAndCloseCurrentBuf()
-  let l:curbuf = expand('%')
-  quit
-  exec 'tabe ' . l:curbuf
-endfunction
+"======================================================"
+"===================== funcs =========================="
+"======================================================"
 
 " /* zoom utils */
+
+function! s:TabSplitAndCloseCurrentBuf()		
+  let l:curbuf = expand('%')		
+  quit		
+  exec 'tabe ' . l:curbuf		
+endfunction		
+
 function! s:ResetTabZoomStatus()
   let t:tmuxlike_zoomed_win = v:null
 endfunction
@@ -55,43 +57,36 @@ function! s:TmuxLikeMap(mapfunc, key, value)
     execute l:_func . ' <silent> <Plug>(tmuxlike-prefix)' . l:_key . ' ' . l:_value
 endfunction
 
-" --------------------------------------------
-" maps
-" --------------------------------------------
-
-" /* tmux origin */
-" help
-call s:TmuxLikeMap('nnoremap', '?', ':help tmuxlike<CR>')
+"======================================================"
+"===================== maps ==========================="
+"======================================================"
 " toggle zoom
 call s:TmuxLikeMap('nnoremap', 'z', ':call <SID>ZoomToggle()<CR>')
+
 " h split
-call s:TmuxLikeMap('nnoremap', '"', ':new<CR>')
-call s:TmuxLikeMap('nnoremap', '_', ':split<CR>')
+call s:TmuxLikeMap('nnoremap', '-', ':split<CR>')
+
 " v split
-call s:TmuxLikeMap('nnoremap', '%', ':vnew<CR>')
-call s:TmuxLikeMap('nnoremap', '\|', ':vsplit<CR>')
+call s:TmuxLikeMap('nnoremap', '\', ':vsplit<CR>')
+
 " new tab
 call s:TmuxLikeMap('nnoremap', 'c', ':$tabnew<CR>')
-" change tab
-call s:TmuxLikeMap('nnoremap', '<c-h>', ':tabprevious<CR>')
-call s:TmuxLikeMap('nnoremap', '<c-p>', ':tabprevious<CR>')
-call s:TmuxLikeMap('nnoremap', '<n>', ':tabnext<CR>')
-call s:TmuxLikeMap('nnoremap', '<c-l>', ':tabnext<CR>')
-call s:TmuxLikeMap('nnoremap', '<c-n>', ':tabnext<CR>')
+
 " confirm quit current buffer
 call s:TmuxLikeMap('nnoremap', 'x', ':conf q<CR>')
+
 " close current tab
-call s:TmuxLikeMap('nnoremap', '&', ':tabclose<CR>')
+call s:TmuxLikeMap('nnoremap', 'd', ':tabclose<CR>')
+
 " show history
 call s:TmuxLikeMap('nnoremap', '~', ':messages<CR>')
+
 " break pane
 call s:TmuxLikeMap('nnoremap', '!', ':call <SID>TabSplitAndCloseCurrentBuf()<CR>')
+
 " detach
 call s:TmuxLikeMap('nnoremap', 'd', ':suspend<CR>')
-" refresh
-call s:TmuxLikeMap('nnoremap', 'r', ':redraw<CR>')
-" time
-call s:TmuxLikeMap('nnoremap', 't', ':echom strftime("%c")<CR>')
+
 " TODO:
 " toggle layout
 " call s:TmuxLikeMap('nnoremap', '<space>', '<c-w>r')
@@ -99,10 +94,12 @@ call s:TmuxLikeMap('nnoremap', 't', ':echom strftime("%c")<CR>')
 " call s:TmuxLikeMap('nnoremap', '<c-o>', '"+p')
 
 " /* unnecessary tmux origin */
+
 " paste (from system clipboard)
 call s:TmuxLikeMap('nnoremap', ']', '"+p')
 " last buffer
 call s:TmuxLikeMap('nnoremap', ';', '<c-w>p')
+
 " select buffer
 call s:TmuxLikeMap('nnoremap', 'h', '<c-w>h')
 call s:TmuxLikeMap('nnoremap', 'j', '<c-w>j')
@@ -112,6 +109,7 @@ call s:TmuxLikeMap('nnoremap', '<Left>', '<c-w>h')
 call s:TmuxLikeMap('nnoremap', '<Down>', '<c-w>j')
 call s:TmuxLikeMap('nnoremap', '<Up>', '<c-w>k')
 call s:TmuxLikeMap('nnoremap', '<Right>', '<c-w>l')
+
 " resize
 call s:TmuxLikeMap('nnoremap', 'H', '<c-w>5<')
 call s:TmuxLikeMap('nnoremap', 'J', '<c-w>5+')
